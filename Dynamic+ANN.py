@@ -1,7 +1,5 @@
 
-# coding: utf-8
 
-# In[1]:
 import pandas as pd
 import numpy as np
 import math
@@ -9,7 +7,6 @@ from math import exp
 from operator import mul
 
 
-# In[2]:
 #remove nulls from dataset
 def removeNulls(dataFrame):
     updated_dataFrame = dataFrame
@@ -22,7 +19,7 @@ def removeNulls(dataFrame):
     return updated_dataFrame
 
 
-# In[3]:
+
 #normalize the dataset
 def meanNormalize(array):
     mean = np.average(array)
@@ -31,19 +28,17 @@ def meanNormalize(array):
     return normalizedArray
 
 
-# In[4]:
+
 #enter input path of the dataset
 url = input("Enter the URL of the dataset:")
 output_path = input("Enter the output path for processed data:")
 dataFrame = pd.read_csv(url, skipinitialspace=True, na_values='.', header = None)
 
 
-# In[5]:
 
 dataFrame_without_nulls = removeNulls(dataFrame)
 
 
-# In[6]:
 
 normalised_dataFrame = dataFrame_without_nulls
 for i in range(len(dataFrame_without_nulls.columns)):
@@ -57,7 +52,6 @@ for i in range(len(dataFrame_without_nulls.columns)):
     #print()
 
 
-# In[7]:
 
 preprocessed_dataFrame = normalised_dataFrame
 for j in range(len(preprocessed_dataFrame.columns)):
@@ -76,7 +70,6 @@ for j in range(len(preprocessed_dataFrame.columns)):
         #print()
 
 
-# In[8]:
 
 j = len(preprocessed_dataFrame.columns)-1
 preprocessed_dataFrame[j]
@@ -102,7 +95,6 @@ for i in range(len(preprocessed_dataFrame)):
 
 
 
-# In[9]:
 
 normalised_dataFrame.to_csv(output_path, sep=',',index= None, header=None)
 
@@ -141,7 +133,6 @@ def trainNeuralNetwork(maximumIterations, dataFrame, allWeights, numberOfNodes, 
     return allWeights
 
 
-# In[12]:
 
 def calculateWeights(inputNodeCount, hiddenLayersCount, hiddenNodesCount):
     
@@ -180,7 +171,7 @@ def calculateWeights(inputNodeCount, hiddenLayersCount, hiddenNodesCount):
     return allWeights, numberOfNodes
 
 
-# In[13]:
+
 
 def findAccuracyOfNetwork(dataFrame, allWeights, numberOfNodes):
     
@@ -213,7 +204,6 @@ def findAccuracyOfNetwork(dataFrame, allWeights, numberOfNodes):
     return accuracy
 
 
-# In[14]:
 
 #forward propagation function
 
@@ -257,7 +247,6 @@ def forwardPropagation(allWeights, inputArray, numberOfNodes):
     return sigmoidList, output
 
 
-# In[15]:
 
 def findLabel(array,value):
     index = np.searchsorted(array, value, side="left")
@@ -267,7 +256,6 @@ def findLabel(array,value):
         return array[index]
 
 
-# In[16]:
 
 #back prop
 
@@ -313,9 +301,6 @@ def backPropagationFunction(allWeights, inputArray, sigmoidList, numberOfNodes, 
             #print(allWeights)
             
            
-    #print("\n\nNow at input layer")
-    #print(list_delta[0][0][1:])
-    #print(inputArray)
     
     delta_weights_level = learningRate * np.matrix(list_delta[0][0][1:]).T * np.matrix(inputArray)
     delta_weights_level = delta_weights_level.tolist()
@@ -331,7 +316,6 @@ def backPropagationFunction(allWeights, inputArray, sigmoidList, numberOfNodes, 
     return allWeights
 
 
-# In[17]:
 
 #input from user
 
@@ -370,7 +354,7 @@ allWeights, numberOfNodes = calculateWeights(inputNodeCount, hiddenLayersCount, 
 #print("Count of Nodes in Layers", numberOfNodes)
 
 
-# In[18]:
+
 
 allWeights = trainNeuralNetwork(maximumIterations, training_dataset, allWeights, numberOfNodes, learningRate)
         
@@ -378,35 +362,31 @@ allWeights = trainNeuralNetwork(maximumIterations, training_dataset, allWeights,
 #print(allWeights)
 
 
-# In[19]:
+
 
 training_accuracy = findAccuracyOfNetwork(training_dataset, allWeights, numberOfNodes)
 #print("Traing Accuracy:", training_accuracy*100)
 
 
-# In[20]:
+
 
 testing_accuracy = findAccuracyOfNetwork(testing_dataset, allWeights, numberOfNodes)
 #print("Testing Accuracy:", testing_accuracy*100)
 
 
-# In[21]:
+
 
 training_error = 1 - training_accuracy
 testing_error = 1 - testing_accuracy
 
 
-# In[ ]:
 
 
-
-
-# In[22]:
 
 num_layers = len(allWeights)
 
 
-# In[23]:
+
 
 for i in range(num_layers):
     print("\n\nLayer ", i)
@@ -421,13 +401,10 @@ for i in range(num_layers):
             print("\t\t",allWeights_layer[j][k])
 
 
-# In[24]:
 
 print("Total Training Error:", training_error*100)
 print("Total Testing Error:", testing_error*100)
 
-
-# In[ ]:
 
 
 
